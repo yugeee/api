@@ -1,0 +1,69 @@
+swagger: "2.0"
+info:
+  description: "ログイン＆ユーザー情報を返却するAPI"
+  version: "1.0.0"
+  title: "ユーザー取得API"
+  contact:
+    email: "n_yuge@sakurasaku-corp.jp"
+host: "153.156.41.38"
+basePath: "/api/v1/"
+tags:
+- name: "user"
+  description: "ログイン＆ユーザー情報取得"
+schemes:
+- "http"
+paths:
+  /user:
+    post:
+      summary: "ログイン"
+      description: "ログインを行いユーザー情報を取得する"
+      operationId: "login"
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+      - name: "id"
+        in: "formData"
+        description: "取得したいユーザのID"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "pass"
+        in: "formData"
+        description: "取得したいユーザのパスワード"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "取得した場合"
+          schema:
+            $ref: "#/definitions/user"
+    get:
+      summary: "ログイン確認"
+      description: "トークンでユーザを取得する"
+      parameters:
+      - in: "path"
+        name: "token"
+        description: "アクセストークン"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "取得した場合"
+          schema:
+            $ref: "#/definitions/user"
+definitions:
+  user:
+    type: "object"
+    properties:
+      number:
+        type: "integer"
+      id:
+        type: "string"
+      name:
+        type: "string"
+      pass:
+        type: "string"
+      mail:
+        type: "string"
+      token:
+        type: "string"
